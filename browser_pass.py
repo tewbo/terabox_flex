@@ -7,6 +7,7 @@ from Uploader import Uploader
 
 PROXY_HOST = 'localhost'
 PROXY_PORT = 8090
+SLEEP_TIME = 3
 
 
 def update_sign():
@@ -37,7 +38,7 @@ def update_sign():
     except:
         button = browser.find_element(By.XPATH, "//button[@title='Download']")
     browser.execute_script("arguments[0].click();", button)
-    sleep(3)
+    sleep(SLEEP_TIME)
 
     browser.quit()
     print("Sign updating was completed successful.")
