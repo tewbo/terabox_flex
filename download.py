@@ -17,10 +17,11 @@ def get_params(fs_id):
     return params
 
 
-def download(fs_id, dest: BytesIO = None):
+def download(fs_id, dest: BytesIO = None, sleep_time: int = 3):
     """
     Download the file from Terabox.
 
+    :param sleep_time: time browser need to send requests. Increase this parameter if sign.json won't update
     :param fs_id: file id, obtained from `Uploader.upload()` function.
     :param dest: optional, BytesIO object where the file data would be downloaded.
     :return: name of the downloaded file.
@@ -36,7 +37,7 @@ def download(fs_id, dest: BytesIO = None):
     errno = response_data['errno']
     while errno != 0:
         print(f"Sign parameter is outdated. Errno: {errno}. Running the sign updating...")
-        update_sign()
+        update_sign(sleep_time)
         params = get_params(fs_id)
         response = requests.get(url, headers=headers, params=params, cookies=cookies)
         response_data = json.loads(response.content)
