@@ -10,34 +10,37 @@ PROXY_PORT = 8090
 
 
 def update_sign():
-    print("обновление sign")
+    print("Running browser...")
     proxy = f"{PROXY_HOST}:{PROXY_PORT}"
 
     options = webdriver.ChromeOptions()
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument("--proxy-server={0}".format(proxy))
     options.add_argument("--ignore-certificate-errors")
 
     browser = webdriver.Chrome(options=options)
 
     browser.get("https://www.terabox.com/example404page")
-    cookies = Uploader.parseCookieFile()
+    cookies = Uploader.parse_cookie_file()
     for key in cookies:
         kekw = {"name": key,
-                "value": cookies[key],
-                "domain": "terabox.com"}
+                "value": cookies[key]
+                }
         browser.add_cookie(kekw)
     browser.get("https://www.terabox.com/main?category=all")
 
-    checkbox = browser.find_elements(By.CSS_SELECTOR, ".u-checkbox__input .u-checkbox__original")[-1]
+    checkbox = browser.find_elements(By.CLASS_NAME, "u-checkbox__original")[-1]
     browser.execute_script("arguments[0].click();", checkbox)
 
-    button = browser.find_element(By.XPATH, "//button[@title='Скачать']")
+    try:
+        button = browser.find_element(By.XPATH, "//button[@title='Скачать']")
+    except:
+        button = browser.find_element(By.XPATH, "//button[@title='Download']")
     browser.execute_script("arguments[0].click();", button)
     sleep(3)
 
     browser.quit()
-    print("обновление отработало успешно")
+    print("Sign updating was completed successful.")
 
 
 if __name__ == "__main__":
