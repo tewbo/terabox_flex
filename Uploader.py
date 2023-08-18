@@ -28,7 +28,7 @@ class Uploader:
         cookies = {}
         with open(Uploader.cookies_file, 'r') as fp:
             for line in fp:
-                if not re.match(r'^\#', line):
+                if not re.match(r'^#', line):
                     line_fields = line.strip().split('\t')
                     cookies[line_fields[5]] = line_fields[6]
         return cookies
@@ -88,17 +88,17 @@ class Uploader:
         r1 = self.precreate()
         r1_map = json.loads(r1.content)
         upload_id = r1_map["uploadid"]
-        print(r1.status_code)
-        print(r1.content)
+        # print(r1.status_code)
+        # print(r1.content)
 
         r2 = self.data_upload(upload_id)
         r2_map = json.loads(r2.content)
-        print(r2.status_code)
-        print(r2.content)
+        # print(r2.status_code)
+        # print(r2.content)
 
         r3 = self.create(f'["{r2_map["md5"]}"]', upload_id)
         r3_map = json.loads(r3.content)
 
-        print(r3.status_code)
-        print(r3.content)
+        # print(r3.status_code)
+        # print(r3.content)
         return r3_map['fs_id']

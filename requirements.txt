@@ -1,0 +1,4 @@
+requests~=2.31.0
+selenium~=4.11.2
+browsermob-proxy~=0.8.0
+mitmproxy~=10.0.0
