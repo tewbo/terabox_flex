@@ -1,5 +1,6 @@
 # terabox-flex
 **Unofficial API to download and upload file to Terabox**
+**NOT WORKING NOW**
 
 ## Installing
 1. Obtain *cookies.txt extension* from here: https://github.com/death-angel-141/cookies.txt
